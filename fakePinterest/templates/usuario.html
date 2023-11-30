@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+
+</head>
+<body>
+    {% include "navBar.html" %}
+    {% if form %}
+
+    <div class="container">
+
+        <form  method="post", enctype="multipart/form-data"  class="bloco-add-img">
+            {{form.csrf_token}}
+          <h2>{{usuario.nome}}</h2>
+  
+          <div class="bloco-input-botao">
+            <div class="bloco-arquivo">
+              {{form.foto(class="botao-arquivo")}}
+            </div>
+   
+            {{form.botao( class="botao-login")}}
+          </div>
+        </form>
+
+    {% else%}
+        <div class="bloco-add-img">
+            <h2>{{usuario.nome}} - Ver Perfil</h2>
+        </div>    
+    {% endif %}
+    
+    <div class="conteudo">
+    {% for imagem in usuario.imagem %}
+        <div class="bloco-imagem">
+          <img src="{{ url_for('static', filename='fotos_site/{}'.format(imagem.imagem)) }}"/>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
